@@ -18,6 +18,7 @@ System.register(['../time_grain_converter'], function(exports_1) {
                     this.timeGrainType = '';
                     this.timeGrain = '';
                     this.timeGrainUnit = '';
+                    this.filterExpressions = [];
                 }
                 AppInsightsQuerystringBuilder.prototype.setAggregation = function (aggregation) {
                     this.aggregation = aggregation;
@@ -29,6 +30,13 @@ System.register(['../time_grain_converter'], function(exports_1) {
                     this.timeGrainType = timeGrainType;
                     this.timeGrain = timeGrain;
                     this.timeGrainUnit = timeGrainUnit;
+                };
+                AppInsightsQuerystringBuilder.prototype.setFilter = function (segment, operator, value) {
+                    var val = this.isNumeric(value) ? value : "'" + value + "'";
+                    this.filterExpressions.push(segment + " " + operator + " " + val);
+                };
+                AppInsightsQuerystringBuilder.prototype.isNumeric = function (val) {
+                    return Number(parseFloat(val)) === val;
                 };
                 AppInsightsQuerystringBuilder.prototype.generate = function () {
                     var querystring = "timespan=" + this.from.utc().format() + "/" + this.to.utc().format();
@@ -43,6 +51,10 @@ System.register(['../time_grain_converter'], function(exports_1) {
                     }
                     if (this.timeGrainType === 'auto') {
                         querystring += "&interval=" + time_grain_converter_1.default.createISO8601DurationFromInterval(this.grafanaInterval);
+                    }
+                    for (var _i = 0, _a = this.filterExpressions; _i < _a.length; _i++) {
+                        var expr = _a[_i];
+                        querystring += "&filter=" + expr;
                     }
                     return querystring;
                 };

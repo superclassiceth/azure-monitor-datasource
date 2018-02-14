@@ -54,7 +54,7 @@
 
   "dependencies": {
     "grafanaVersion": "4.5.x",
-    "plugins": [ ]
+    "plugins": [{"id":"grafana-clock-panel"} ]
   },
 
   "metrics": true,

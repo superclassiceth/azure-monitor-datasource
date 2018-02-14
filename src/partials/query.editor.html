@@ -175,6 +175,16 @@
       <div class="gf-form gf-form--grow">
         <div class="gf-form-label gf-form-label--grow"></div>
       </div>
+      <div class="gf-form-inline">
+        <div class="gf-form">
+          <label class="gf-form-label query-keyword width-9">Filter</label>
+          <input type="text" class="gf-form-input width-30" ng-model="ctrl.target.appInsights.filter" spellcheck="false" placeholder="filter" ng-blur="ctrl.refresh()">
+        </div>
+
+        <div class="gf-form gf-form--grow">
+          <div class="gf-form-label gf-form-label--grow"></div>
+        </div>
+      </div>
     </div>
   </div>
 </query-editor-row>
