@@ -16,7 +16,7 @@ export default class AppInsightsDatasource {
   logAnalyticsColumns: {[key: string]: LogAnalyticsColumn[]} = {};
 
 
-  /** @ngInject **/
+  /** @ngInject */
   constructor(instanceSettings, private backendSrv, private templateSrv, private $q) {
     this.id = instanceSettings.id;
     this.applicationId = instanceSettings.jsonData.appInsightsAppId;

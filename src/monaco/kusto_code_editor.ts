@@ -141,7 +141,7 @@ export default class KustoCodeEditor {
   }
 
   toSuggestionController(srv: monaco.editor.IEditorContribution): SuggestionController {
-    return <any>srv;
+    return srv as any;
   }
 
   setEditorContent(value) {
@@ -154,7 +154,7 @@ export default class KustoCodeEditor {
       '- `$__timeFilter()` -> Uses the ' + this.defaultTimeField + ' column\n\n' +
       '- `$__timeFilter(datetimeColumn)` ->  Uses the specified datetime column to build the query.';
 
-    var textUntilPosition = model.getValueInRange({
+    let textUntilPosition = model.getValueInRange({
       startLineNumber: 1,
       startColumn: 1,
       endLineNumber: position.lineNumber,
@@ -236,7 +236,7 @@ export default class KustoCodeEditor {
   }
 
   getSignatureHelp(model: monaco.editor.IReadOnlyModel, position: monaco.Position, token: monaco.CancellationToken) {
-    var textUntilPosition = model.getValueInRange({
+    let textUntilPosition = model.getValueInRange({
       startLineNumber: position.lineNumber,
       startColumn: position.column - 14,
       endLineNumber: position.lineNumber,
@@ -244,7 +244,7 @@ export default class KustoCodeEditor {
     });
 
     if (textUntilPosition !== '$__timeFilter(') {
-      return <monaco.languages.SignatureHelp>{};
+      return {} as monaco.languages.SignatureHelp;
     }
 
     const signature: monaco.languages.SignatureHelp = {

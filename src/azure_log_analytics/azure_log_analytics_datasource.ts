@@ -11,7 +11,7 @@ export default class AzureLogAnalyticsDatasource {
   defaultOrFirstWorkspace: string;
   subscriptionId: string;
 
-  /** @ngInject **/
+  /** @ngInject */
   constructor(private instanceSettings, private backendSrv, private templateSrv, private $q) {
     this.id = instanceSettings.id;
     this.baseUrl = this.instanceSettings.jsonData.azureLogAnalyticsSameAs
@@ -160,7 +160,7 @@ export default class AzureLogAnalyticsDatasource {
       return value;
     }
 
-    var quotedValues = _.map(value, function(val) {
+    const quotedValues = _.map(value, function(val) {
       if (typeof value === 'number') {
         return value;
       }

@@ -26,22 +26,22 @@ export default class ResponseParser {
 
   parseRawQueryResultRow(query: any, columns, rows, xaxis: string, yaxises: string, spliton: string) {
     const data: any[] = [];
-    const columnsForDropdown = _.map(columns, column => { return {text: column.ColumnName, value: column.ColumnName}; });
+    const columnsForDropdown = _.map(columns, column => ({text: column.ColumnName, value: column.ColumnName}));
 
-    const xaxis_column = columns.findIndex((column) => { return column.ColumnName === xaxis; });
+    const xaxis_column = columns.findIndex((column) => column.ColumnName === xaxis);
     const yaxises_split = yaxises.split(',');
     const yaxis_columns = {};
     _.forEach(yaxises_split, (yaxis) => {
-      yaxis_columns[yaxis] = columns.findIndex((column) => { return column.ColumnName === yaxis; });
+      yaxis_columns[yaxis] = columns.findIndex((column) => column.ColumnName === yaxis);
     });
-    const spliton_column = columns.findIndex((column) => { return column.ColumnName === spliton; });
+    const spliton_column = columns.findIndex((column) => column.ColumnName === spliton);
     const convert_timestamp = xaxis === "timestamp";
 
     _.forEach(rows, function(row) {
       _.forEach(yaxis_columns, (yaxis_column, yaxis_name) => {
-        let bucket = spliton_column === -1 ?
+        const bucket = spliton_column === -1 ?
           ResponseParser.findOrCreateBucket(data, yaxis_name) : ResponseParser.findOrCreateBucket(data, row[spliton_column]);
-        let epoch = convert_timestamp ? ResponseParser.dateTimeToEpoch(row[xaxis_column]) : row[xaxis_column];
+        const epoch = convert_timestamp ? ResponseParser.dateTimeToEpoch(row[xaxis_column]) : row[xaxis_column];
         bucket.datapoints.push([row[yaxis_column], epoch]);
         bucket.refId = query.refId;
         bucket.query = query.query;
@@ -106,7 +106,7 @@ export default class ResponseParser {
     let metric = '';
     let segmentName = '';
     let segmentValue = '';
-    for (let prop in segment) {
+    for (const prop in segment) {
       if (_.isObject(segment[prop])) {
         metric = prop;
       } else {

@@ -5,7 +5,7 @@ import Q from 'q';
 import moment from 'moment';
 
 describe('AzureLogAnalyticsDatasource', () => {
-  let ctx: any = {
+  const ctx: any = {
     backendSrv: {},
     templateSrv: new TemplateSrvStub(),
   };

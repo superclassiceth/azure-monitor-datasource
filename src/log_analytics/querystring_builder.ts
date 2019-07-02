@@ -4,7 +4,7 @@ export default class LogAnalyticsQuerystringBuilder {
   constructor(public rawQueryString, public options, public defaultTimeField) {}
 
   generate() {
-    var queryString = this.rawQueryString;
+    let queryString = this.rawQueryString;
     const macroRegexp = /\$__([_a-zA-Z0-9]+)\(([^\)]*)\)/gi;
     queryString = queryString.replace(macroRegexp, (match, p1, p2) => {
       if (p1 === 'contains') {
@@ -30,13 +30,13 @@ export default class LogAnalyticsQuerystringBuilder {
     }
     const rawQuery = queryString;
     queryString = encodeURIComponent(queryString);
-    let uriString = `query=${queryString}`;
+    const uriString = `query=${queryString}`;
 
     return { uriString, rawQuery };
   }
 
   getFrom(options) {
-    var from = options.range.from;
+    const from = options.range.from;
     return `datetime(${moment(from)
       .startOf('minute')
       .toISOString()})`;
@@ -46,7 +46,7 @@ export default class LogAnalyticsQuerystringBuilder {
     if (options.rangeRaw.to === 'now') {
       return 'now()';
     } else {
-      var until = options.range.to;
+      const until = options.range.to;
       return `datetime(${moment(until)
         .startOf('minute')
         .toISOString()})`;

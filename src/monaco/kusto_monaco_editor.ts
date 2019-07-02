@@ -4,7 +4,7 @@ import angular from 'angular';
 import KustoCodeEditor from './kusto_code_editor';
 import config from 'grafana/app/core/config';
 
-let editorTemplate = `<div id="content" tabindex="0" style="width: 100%; height: 120px"></div>`;
+const editorTemplate = `<div id="content" tabindex="0" style="width: 100%; height: 120px"></div>`;
 
 function link(scope, elem, attrs) {
   const containerDiv = elem.find('#content')[0];
@@ -49,7 +49,7 @@ function link(scope, elem, attrs) {
 
     // Sync with outer scope - update editor content if model has been changed from outside of directive.
     scope.$watch('content', (newValue, oldValue) => {
-      let editorValue = kustoCodeEditor.getValue();
+      const editorValue = kustoCodeEditor.getValue();
       if (newValue !== editorValue && newValue !== oldValue) {
         scope.$$postDigest(function() {
           kustoCodeEditor.setEditorContent(newValue);
@@ -59,7 +59,7 @@ function link(scope, elem, attrs) {
 
     kustoCodeEditor.setOnDidChangeModelContent(() => {
       scope.$apply(() => {
-        let newValue = kustoCodeEditor.getValue();
+        const newValue = kustoCodeEditor.getValue();
         scope.content = newValue;
       });
     });

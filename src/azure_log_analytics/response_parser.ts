@@ -63,7 +63,7 @@ export interface AnnotationItem {
 }
 
 export default class ResponseParser {
-  columns: Array<string>;
+  columns: string[];
   constructor(private results) {}
 
   parseQueryResult(): any {
@@ -142,10 +142,10 @@ export default class ResponseParser {
     const variables: Variable[] = [];
     _.forEach(queryResult, result => {
       _.forEach(_.flattenDeep(result.rows), row => {
-        variables.push(<Variable>{
+        variables.push({
           text: row,
           value: row,
-        });
+        } as Variable);
       });
     });
 
@@ -215,12 +215,12 @@ export default class ResponseParser {
   createSchemaTables(): { [key: string]: KustoTable } {
     const tables: { [key: string]: KustoTable } = {};
 
-    for (let table of this.results.tables) {
+    for (const table of this.results.tables) {
       tables[table.name] = {
         Name: table.name,
         OrderedColumns: [],
       };
-      for (let col of table.columns) {
+      for (const col of table.columns) {
         tables[table.name].OrderedColumns.push(this.convertToKustoColumn(col));
       }
     }
@@ -238,7 +238,7 @@ export default class ResponseParser {
   createSchemaFunctions(): { [key: string]: KustoFunction } {
     const functions: { [key: string]: KustoFunction } = {};
 
-    for (let func of this.results.functions) {
+    for (const func of this.results.functions) {
       functions[func.name] = {
         Name: func.name,
         Body: func.body,
