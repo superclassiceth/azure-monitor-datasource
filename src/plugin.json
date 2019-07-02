@@ -23,8 +23,8 @@
       { "name": "Azure Monitor Network", "path": "img/azure_monitor_network.png" },
       { "name": "Azure Monitor CPU", "path": "img/azure_monitor_cpu.png" }
     ],
-    "version": "0.3.0",
-    "updated": "2018-12-06"
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
   },
 
   "routes": [
